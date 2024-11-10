@@ -69,7 +69,7 @@ def clean_msg(msg):
     return msg
 
 # Execute pipeline
-for i in content[:1]:
+for i in content:
     
     # 0. Get pdf file 
     fpath = i
