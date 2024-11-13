@@ -30,11 +30,11 @@ The text file contains the correct text paragraphs. Using the text paragraphs in
 '''
 
 def sys_prompt(text,markdown_content):
-    prompt = f"""You are a Markdown editor and formatter. The Extracted Text Content contains the correct text paragraphs! But, be aware of nosiy letters or characters. Meanwhile, the Markdown Content contains the correct format and structure, but may have missing texts. 
-Your task is to update the Markdown Content with any missing content or misordered sections based on the correct paragraphs from the Text Content.
+    prompt = f"""You are a Markdown editor and formatter. The text content contains the correct text paragraphs, but be aware of nosiy letters or characters. The Markdown file contains the correct format, but may have missing text content or misordered structure. 
+Based on the correct text paragraphs, update the Markdown file with any missing content or misordered sections. Make sure to include all the text content in the Markdown file! 
 
 ------------------------------------
-Extracted Text Content:
+Text Content:
 {text}
 
 ------------------------------------
@@ -42,7 +42,7 @@ Mardown Content:
 {markdown_content}
 
 ------------------------------------
-Give back the updated Markdown Content with updated texts.
+Give back the Markdown content with the corrections made.
 
 Updated Markdown Content:     
     """
@@ -82,6 +82,7 @@ for i in content:
     markdown_content, images, out_meta = convert_single_pdf(fpath, model_lst)
 
     # 3. Use LLM to update markdown file with text
+    print("LLM is updating markdown file with text...")
     prompt = sys_prompt(text,markdown_content)
     msg = chat(prompt)
     clean = clean_msg(msg)
@@ -89,7 +90,7 @@ for i in content:
     # 4. Save outputs 
     
     # Save text  
-    output_dir = 'parsed/text'
+    output_dir = 'parsed_/text'
     os.makedirs(output_dir, exist_ok=True)  # Create the directory if it doesn't exist
     output_file_txt = os.path.join(output_dir, f'{base_name}.txt')
     output_file_md = os.path.join(output_dir, f'{base_name}.md')
@@ -103,7 +104,7 @@ for i in content:
     print(f"Text saved to {output_file_txt} and {output_file_md}")
 
     # Save images
-    output_dir = 'parsed/images'
+    output_dir = 'parsed_/images'
     os.makedirs(output_dir, exist_ok=True)  # Create the directory if it doesn't exist
     output_subdir = os.path.join(output_dir, base_name)
     os.makedirs(output_subdir, exist_ok=True)  # Ensure the subdirectory exists
